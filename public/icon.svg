@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#070706"/>
+  <path fill="#fff8df" d="M86 92h340v328H86z"/>
+  <path fill="#c7ded3" d="M114 120h284v95H114z"/>
+  <path fill="#070706" d="M137 254h238v34H137zm0 55h165v34H137z"/>
+  <path fill="#f05a24" d="M130 368h252l-18 38H112z"/>
+  <text x="256" y="192" text-anchor="middle" fill="#070706" font-family="Impact, Arial Black, sans-serif" font-size="70">COCO</text>
+</svg>

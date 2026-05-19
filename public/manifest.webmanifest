@@ -1,0 +1,19 @@
+{
+  "name": "Coco's Outback Stock Counter",
+  "short_name": "Coco Stock",
+  "description": "Offline-friendly bar stock counter for Coco's Outback.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#070706",
+  "theme_color": "#070706",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
