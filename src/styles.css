@@ -47,6 +47,12 @@ button {
   touch-action: manipulation;
 }
 
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid rgba(240, 90, 36, 0.42);
+  outline-offset: 3px;
+}
+
 .app-shell {
   width: min(100%, 760px);
   min-height: 100vh;
@@ -293,6 +299,10 @@ h1 {
   box-shadow: 0 0 0 1px rgba(255, 248, 223, 0.2);
 }
 
+.drink-row.is-collected {
+  opacity: 0.68;
+}
+
 .drink-row:nth-child(4n + 1) {
   background: var(--sage);
 }
@@ -305,13 +315,65 @@ h1 {
   min-width: 0;
 }
 
-.drink-name span {
+.collected-button {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 52px;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tick-box {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 2px solid var(--ink);
+  border-radius: 7px;
+  color: var(--cream);
+  background: transparent;
+  font-family: system-ui, sans-serif;
+  font-size: 1.22rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+.is-collected .tick-box {
+  background: var(--orange);
+}
+
+.drink-title {
+  position: relative;
   display: block;
   overflow-wrap: anywhere;
   font-size: 1.28rem;
   font-weight: 950;
   line-height: 0.95;
   text-transform: uppercase;
+}
+
+.drink-title::after {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 4px;
+  background: var(--orange);
+  box-shadow: 0 1px 0 var(--ink);
+  content: "";
+  transform: translateY(-50%);
+  transition: width 160ms ease;
+}
+
+.is-collected .drink-title::after {
+  width: 100%;
 }
 
 .drink-name small {

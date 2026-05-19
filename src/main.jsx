@@ -58,6 +58,7 @@ const BASE_DRINKS = [
 
 const COUNTS_KEY = 'bar-stock-counter-counts-v1';
 const CUSTOM_DRINKS_KEY = 'bar-stock-counter-custom-drinks-v1';
+const COLLECTED_KEY = 'bar-stock-counter-collected-v1';
 
 const makeBaseId = (name, index) =>
   `base-${index}-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
@@ -79,6 +80,7 @@ function readJson(key, fallback) {
 
 function App() {
   const [counts, setCounts] = useState(() => readJson(COUNTS_KEY, {}));
+  const [collected, setCollected] = useState(() => readJson(COLLECTED_KEY, {}));
   const [customDrinks, setCustomDrinks] = useState(() =>
     readJson(CUSTOM_DRINKS_KEY, [])
   );
@@ -90,6 +92,10 @@ function App() {
   useEffect(() => {
     localStorage.setItem(COUNTS_KEY, JSON.stringify(counts));
   }, [counts]);
+
+  useEffect(() => {
+    localStorage.setItem(COLLECTED_KEY, JSON.stringify(collected));
+  }, [collected]);
 
   useEffect(() => {
     localStorage.setItem(CUSTOM_DRINKS_KEY, JSON.stringify(customDrinks));
@@ -125,6 +131,14 @@ function App() {
     [counts, drinks]
   );
 
+  const collectedRows = useMemo(
+    () =>
+      drinks.filter(
+        (drink) => (counts[drink.id] || 0) > 0 && collected[drink.id]
+      ).length,
+    [collected, counts, drinks]
+  );
+
   function updateCount(id, change) {
     setCounts((currentCounts) => {
       const nextQuantity = Math.max(0, (currentCounts[id] || 0) + change);
@@ -134,6 +148,14 @@ function App() {
 
   function resetCounts() {
     setCounts({});
+    setCollected({});
+  }
+
+  function toggleCollected(id) {
+    setCollected((currentCollected) => ({
+      ...currentCollected,
+      [id]: !currentCollected[id],
+    }));
   }
 
   function addDrink(event) {
@@ -193,8 +215,10 @@ function App() {
           <p>Total missing</p>
         </div>
         <div>
-          <span>{activeRows}</span>
-          <p>Drinks to restock</p>
+          <span>
+            {collectedRows}/{activeRows}
+          </span>
+          <p>Collected</p>
         </div>
       </section>
 
@@ -241,9 +265,27 @@ function App() {
         </div>
         {filteredDrinks.length > 0 ? (
           filteredDrinks.map((drink) => (
-            <article className="drink-row" key={drink.id}>
+            <article
+              className={`drink-row ${collected[drink.id] ? 'is-collected' : ''}`}
+              key={drink.id}
+            >
               <div className="drink-name">
-                <span>{drink.name}</span>
+                <button
+                  type="button"
+                  className="collected-button"
+                  onClick={() => toggleCollected(drink.id)}
+                  aria-pressed={Boolean(collected[drink.id])}
+                  aria-label={
+                    collected[drink.id]
+                      ? `Mark ${drink.name} as not collected`
+                      : `Mark ${drink.name} as collected`
+                  }
+                >
+                  <span className="tick-box" aria-hidden="true">
+                    {collected[drink.id] ? '✓' : ''}
+                  </span>
+                  <span className="drink-title">{drink.name}</span>
+                </button>
                 {drink.custom && <small>Custom</small>}
               </div>
 
