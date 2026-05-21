@@ -61,7 +61,139 @@ const CUSTOM_DRINKS_KEY = 'bar-stock-counter-custom-drinks-v1';
 const COLLECTED_KEY = 'bar-stock-counter-collected-v1';
 const SORT_KEY = 'bar-stock-counter-sort-v1';
 const ORDER_KEY = 'bar-stock-counter-manual-order-v1';
+const CLEANING_KEY = 'bar-stock-counter-cleaning-v1';
 const CONFETTI_PIECES = Array.from({ length: 28 }, (_, index) => index);
+
+const CLEANING_SECTIONS = [
+  {
+    title: 'Sexy Bar',
+    items: [
+      'Beer Side',
+      'Beer taps wiped',
+      'Top grill cleaned inside and out',
+      'Glass rack/ice area',
+      'Slushie machine',
+      'Condiment shelf',
+      'Blenders',
+      'Tops of beer fridges wiped',
+      'Cocktail section',
+      'Fruits wrapped',
+      'Bain Marie wiped',
+      'Alcohol shelf wiped',
+      'Alcohol bottles wiped',
+      'Fridge wiped down outside',
+      'Fridge seals wiped',
+      'Fridge glass cleaned',
+      'Softie tap/Guinness tap soaked',
+      'Bottle cap container cleaned',
+      'POS/Pin machine/printer wiped',
+      'All bottles covered',
+      'Silver fridge moved and cleaned under',
+      'Pitcher shelf',
+      'Slushie machine drained and cleaned',
+      'Restocked',
+      'Empty bottles from the bar',
+    ],
+  },
+  {
+    title: 'Main Bar',
+    items: [
+      'Right hand side section cleaned',
+      'Main area cleaned',
+      'Beer taps wiped',
+      'Top grill cleaned inside and out',
+      'Back bar emptied and cleaned',
+      'Speed rail cleaned inside and out',
+      'Bottles in speed rail wiped',
+      'Coffee machine cleaned',
+      'Under coffee machine wiped',
+      'Under shot tube fridge wiped',
+      'Milk fridge cleaned inside',
+      'Softie tap/Guinness tap soaked',
+      'All fridge handles wiped',
+      'Fridge glass cleaned',
+      'All bottles covered',
+      'POS/Pin machine/printers wiped',
+      'All items out of fridge',
+      'Drawers under coffee machine cleaned',
+      'All stuff from shelves put on top of bar',
+      'Restocked',
+    ],
+  },
+  {
+    title: 'Corner Bar',
+    items: [
+      'Main area cleaned',
+      'Beer taps wiped',
+      'Top grill cleaned inside and out',
+      'Speed rail cleaned inside and out',
+      'Speed rail bottles wiped',
+      'Back bar emptied and cleaned',
+      'Fridge handles cleaned',
+      'Fridge glass cleaned',
+      'All bottles covered',
+      'All items out of fridge',
+      'Restocked',
+    ],
+  },
+  {
+    title: 'Shooter Bar',
+    items: [
+      'Main area cleaned',
+      'Fruits wrapped',
+      'Fruits put away into fruit fridge',
+      'All bottles wiped',
+      'All bottles covered',
+      'Fridge area properly covered',
+      'Bottles and fruit area covered with bag',
+      'Shelf fridge wiped inside and out',
+      'Restocked',
+    ],
+  },
+  {
+    title: 'Glass Room',
+    items: [
+      'Ash trays in last',
+      'Machine drained',
+      'All machine parts taken out and washed',
+      'Inside machine rinsed',
+      'Machine put back together properly',
+      'Sink items washed and put in machine',
+      'All surfaces cleaned',
+      'Silver fridge cleaned',
+      'Machine outside cleaned',
+      'Sink cleaned',
+      'White tubs put on top of shelf',
+      'Everything removed and shelf cleaned',
+      'All crates/trays/glass bins taken outside',
+      'Crates sorted',
+    ],
+  },
+  {
+    title: 'General',
+    items: [
+      'Top bar cleaned and dried',
+      'Mats removed from bar and laid outside',
+      'Mats from shooter bar removed',
+      'Bottle bins removed and thrown in bin',
+      'All trays put upstairs in kitchen',
+      'Mats and bottle bins sprayed',
+      'Mats stacked neatly away from the door',
+      'Bottle bins returned inside',
+      'Smoke machines off',
+      'All fans off',
+      'Fan upstairs off',
+      'Stock room clean',
+      'Keg area clean',
+      "Menu's removed from blocks",
+      'Waiter stands cleaned along all shelves',
+      'Bin bags from all bars in big bin',
+      'Doors locked',
+      "All TV's off",
+      'Walkies check',
+    ],
+  },
+];
 
 const makeBaseId = (name, index) =>
   `base-${index}-${name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`;
@@ -96,9 +228,16 @@ function makeManualOrder(drinks, savedOrder) {
   return orderedIds;
 }
 
+const makeCleaningId = (sectionTitle, item, index) =>
+  `${sectionTitle}-${index}-${item}`.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
 function App() {
+  const [activeTab, setActiveTab] = useState('stock');
   const [counts, setCounts] = useState(() => readJson(COUNTS_KEY, {}));
   const [collected, setCollected] = useState(() => readJson(COLLECTED_KEY, {}));
+  const [cleaningDone, setCleaningDone] = useState(() =>
+    readJson(CLEANING_KEY, {})
+  );
   const [customDrinks, setCustomDrinks] = useState(() =>
     readJson(CUSTOM_DRINKS_KEY, [])
   );
@@ -118,6 +257,10 @@ function App() {
   useEffect(() => {
     localStorage.setItem(COLLECTED_KEY, JSON.stringify(collected));
   }, [collected]);
+
+  useEffect(() => {
+    localStorage.setItem(CLEANING_KEY, JSON.stringify(cleaningDone));
+  }, [cleaningDone]);
 
   useEffect(() => {
     localStorage.setItem(CUSTOM_DRINKS_KEY, JSON.stringify(customDrinks));
@@ -185,6 +328,28 @@ function App() {
     [collected, counts, drinks]
   );
 
+  const cleaningTotal = useMemo(
+    () =>
+      CLEANING_SECTIONS.reduce(
+        (total, section) => total + section.items.length,
+        0
+      ),
+    []
+  );
+
+  const cleaningCompleted = useMemo(
+    () =>
+      CLEANING_SECTIONS.reduce(
+        (total, section) =>
+          total +
+          section.items.filter((item, index) =>
+            cleaningDone[makeCleaningId(section.title, item, index)]
+          ).length,
+        0
+      ),
+    [cleaningDone]
+  );
+
   useEffect(() => {
     const isComplete = activeRows > 0 && collectedRows === activeRows;
 
@@ -220,6 +385,18 @@ function App() {
   function resetCounts() {
     setCounts({});
     setCollected({});
+  }
+
+  function resetCleaning() {
+    setCleaningDone({});
+  }
+
+  function toggleCleaningItem(sectionTitle, item, index) {
+    const id = makeCleaningId(sectionTitle, item, index);
+    setCleaningDone((currentDone) => ({
+      ...currentDone,
+      [id]: !currentDone[id],
+    }));
   }
 
   function toggleCollected(id) {
@@ -324,14 +501,39 @@ function App() {
           <div>
             <p className="eyebrow">Basement run</p>
             <h1>Coco's Outback</h1>
-            <p className="subhead">Stock counter</p>
+            <p className="subhead">
+              {activeTab === 'stock' ? 'Stock counter' : 'Closing checklist'}
+            </p>
           </div>
         </div>
-        <button className="reset-button" type="button" onClick={resetCounts}>
+        <button
+          className="reset-button"
+          type="button"
+          onClick={activeTab === 'stock' ? resetCounts : resetCleaning}
+        >
           Reset
         </button>
       </header>
 
+      <nav className="tab-nav" aria-label="App sections">
+        <button
+          type="button"
+          className={activeTab === 'stock' ? 'is-active' : ''}
+          onClick={() => setActiveTab('stock')}
+        >
+          Stock
+        </button>
+        <button
+          type="button"
+          className={activeTab === 'closing' ? 'is-active' : ''}
+          onClick={() => setActiveTab('closing')}
+        >
+          Closing
+        </button>
+      </nav>
+
+      {activeTab === 'stock' ? (
+        <>
       <section className="offline-card" aria-label="Offline status">
         <div>
           <span>{offlineReady ? 'Offline ready' : 'Saving offline copy'}</span>
@@ -505,6 +707,60 @@ function App() {
           <p className="empty-state">No drinks match this view.</p>
         )}
       </section>
+        </>
+      ) : (
+        <section className="closing-view" aria-label="Closing checklist">
+          <section className="summary closing-summary" aria-label="Closing progress">
+            <div>
+              <span>{cleaningCompleted}/{cleaningTotal}</span>
+              <p>Tasks done</p>
+            </div>
+            <div>
+              <span>{CLEANING_SECTIONS.length}</span>
+              <p>Areas</p>
+            </div>
+          </section>
+
+          <section className="closing-list" aria-label="Cleaning areas">
+            {CLEANING_SECTIONS.map((section) => {
+              const completedInSection = section.items.filter((item, index) =>
+                cleaningDone[makeCleaningId(section.title, item, index)]
+              ).length;
+
+              return (
+                <article className="cleaning-section" key={section.title}>
+                  <header>
+                    <h2>{section.title}</h2>
+                    <span>{completedInSection}/{section.items.length}</span>
+                  </header>
+
+                  <div className="cleaning-items">
+                    {section.items.map((item, index) => {
+                      const id = makeCleaningId(section.title, item, index);
+                      const isDone = Boolean(cleaningDone[id]);
+
+                      return (
+                        <button
+                          type="button"
+                          className={`cleaning-item ${isDone ? 'is-done' : ''}`}
+                          key={id}
+                          onClick={() =>
+                            toggleCleaningItem(section.title, item, index)
+                          }
+                          aria-pressed={isDone}
+                        >
+                          <span aria-hidden="true">{isDone ? 'X' : ''}</span>
+                          <strong>{item}</strong>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </article>
+              );
+            })}
+          </section>
+        </section>
+      )}
     </main>
   );
 }

@@ -42,5 +42,6 @@ The included `netlify.toml` sets those values automatically.
 - Drinks can be viewed in manual, basement, or A-Z order.
 - Needed drinks can be crossed off after collection.
 - Completing the restock list triggers a small celebration.
+- A separate Closing tab provides a grouped cleaning checklist.
 - Counts and custom drinks are saved in `localStorage`.
 - The app can be installed to a phone Home Screen and used offline after first load.
