@@ -326,7 +326,6 @@ function App() {
             <h1>Coco's Outback</h1>
             <p className="subhead">Stock counter</p>
           </div>
-          <img className="kangaroo-mark" src="/kangaroo.svg" alt="" aria-hidden="true" />
         </div>
         <button className="reset-button" type="button" onClick={resetCounts}>
           Reset

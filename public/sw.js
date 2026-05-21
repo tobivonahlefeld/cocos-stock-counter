@@ -1,10 +1,9 @@
-const CACHE_NAME = 'cocos-stock-counter-v4';
+const CACHE_NAME = 'cocos-stock-counter-v5';
 const APP_SHELL = [
   '/',
   '/index.html',
   '/manifest.webmanifest',
   '/icon.svg',
-  '/kangaroo.svg',
 ];
 
 self.addEventListener('install', (event) => {
