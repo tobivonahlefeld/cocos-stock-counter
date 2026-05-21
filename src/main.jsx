@@ -499,7 +499,6 @@ function App() {
       <header className="app-header">
         <div className="brand-lockup">
           <div>
-            <p className="eyebrow">Basement run</p>
             <h1>Coco's Outback</h1>
             <p className="subhead">
               {activeTab === 'stock' ? 'Stock counter' : 'Closing checklist'}
