@@ -1,7 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 110" role="img" aria-label="Kangaroo mark">
-  <path d="M20 42 68 17c9-5 20-6 31 3l53 43c18 14 38 13 55 0" fill="none" stroke="#fff1c6" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M61 37h43L71 70 20 55Z" fill="none" stroke="#fff1c6" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M102 55 79 95" fill="none" stroke="#fff1c6" stroke-width="11" stroke-linecap="round"/>
-  <path d="M80 95 55 100" fill="none" stroke="#fff1c6" stroke-width="11" stroke-linecap="round"/>
-  <path d="M128 41 96 58" fill="none" stroke="#fff1c6" stroke-width="11" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 150" role="img" aria-label="Kangaroo mark">
+  <path d="M31 55 82 27c12-6 26-6 39 5l58 48c21 18 47 18 69-2" fill="none" stroke="#111111" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M79 54h55L91 89 31 72Z" fill="none" stroke="#111111" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M32 55 13 72 48 75" fill="none" stroke="#111111" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M16 70 39 43" fill="none" stroke="#111111" stroke-width="13" stroke-linecap="round"/>
+  <path d="M127 76 97 132" fill="none" stroke="#111111" stroke-width="13" stroke-linecap="round"/>
+  <path d="M98 132 64 140" fill="none" stroke="#111111" stroke-width="13" stroke-linecap="round"/>
+  <path d="M165 61 124 79" fill="none" stroke="#111111" stroke-width="13" stroke-linecap="round"/>
+  <circle cx="54" cy="55" r="4" fill="#111111"/>
 </svg>

@@ -1,24 +1,23 @@
 :root {
-  color-scheme: dark;
+  color-scheme: light;
   font-family:
-    "Arial Narrow", Impact, Haettenschweiler, "Franklin Gothic Heavy",
-    system-ui, sans-serif;
-  background: #35130d;
-  color: #fff1c6;
+    Arial, "Arial Black", "Helvetica Neue", system-ui, sans-serif;
+  background: #9b83e6;
+  color: #111111;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  --ink: #170905;
-  --deep-earth: #35130d;
-  --earth: #4a180f;
-  --cream: #fff1c6;
-  --cream-muted: #ebd79d;
-  --ochre: #d18a22;
-  --orange: #d18a22;
-  --sun: #f3a536;
-  --clay: #a3341d;
-  --sage: #d3d5ad;
-  --line: rgba(255, 241, 198, 0.38);
+  --ink: #111111;
+  --purple: #9b83e6;
+  --yellow: #ffd27c;
+  --green: #c7f26a;
+  --pink: #f7a6df;
+  --salmon: #ff8067;
+  --blue: #80cce8;
+  --cream: #fff8df;
+  --white: #ffffff;
+  --shadow: 6px 6px 0 var(--ink);
+  --small-shadow: 4px 4px 0 var(--ink);
 }
 
 * {
@@ -30,29 +29,13 @@ body {
   min-height: 100vh;
   margin: 0;
   background:
-    radial-gradient(circle at 12% 14%, rgba(243, 165, 54, 0.24) 0 4px, transparent 5px 26px),
-    radial-gradient(circle at 74% 18%, rgba(255, 241, 198, 0.18) 0 3px, transparent 4px 24px),
-    radial-gradient(circle at 88% 82%, rgba(209, 138, 34, 0.18) 0 5px, transparent 6px 28px),
-    linear-gradient(145deg, #46170f, #230c08 58%, #130705);
-  background-size: 70px 70px, 58px 58px, 86px 86px, auto;
-}
-
-body::before {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(circle at 20% 50%, transparent 0 58px, rgba(255, 241, 198, 0.28) 59px 62px, transparent 63px),
-    radial-gradient(circle at 20% 50%, transparent 0 78px, rgba(243, 165, 54, 0.34) 79px 83px, transparent 84px),
-    radial-gradient(circle at 86% 12%, transparent 0 44px, rgba(255, 241, 198, 0.22) 45px 48px, transparent 49px),
-    radial-gradient(circle at 86% 12%, transparent 0 62px, rgba(163, 52, 29, 0.42) 63px 68px, transparent 69px);
-  content: "";
-  opacity: 0.68;
-  pointer-events: none;
+    radial-gradient(circle, rgba(17, 17, 17, 0.28) 0 2px, transparent 3px) 12px 12px / 34px 34px,
+    linear-gradient(135deg, #9b83e6, #ad91f2 55%, #8fcdf0);
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -61,16 +44,17 @@ button {
 }
 
 button:focus-visible,
-input:focus-visible {
-  outline: 3px solid rgba(209, 138, 34, 0.46);
+input:focus-visible,
+select:focus-visible {
+  outline: 4px solid var(--blue);
   outline-offset: 3px;
 }
 
 .app-shell {
-  width: min(100%, 1180px);
+  width: min(100%, 1240px);
   min-height: 100vh;
   margin: 0 auto;
-  padding: 18px 12px 34px;
+  padding: 18px 12px 36px;
 }
 
 .app-header {
@@ -81,13 +65,11 @@ input:focus-visible {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin: 0 -12px 12px;
-  padding: 16px 12px 12px;
-  border-bottom: 1px solid rgba(255, 241, 198, 0.2);
-  background:
-    radial-gradient(circle, var(--cream) 0 2px, transparent 3px) 0 100% / 20px 10px repeat-x,
-    rgba(23, 9, 5, 0.94);
-  backdrop-filter: blur(14px);
+  margin: 0 -12px 14px;
+  padding: 16px 12px;
+  border-bottom: 4px solid var(--ink);
+  background: rgba(155, 131, 230, 0.94);
+  backdrop-filter: blur(12px);
 }
 
 .brand-lockup {
@@ -98,10 +80,9 @@ input:focus-visible {
 }
 
 .kangaroo-mark {
-  width: clamp(72px, 20vw, 128px);
+  width: clamp(86px, 22vw, 148px);
   height: auto;
   flex: 0 0 auto;
-  filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.42));
 }
 
 .eyebrow,
@@ -110,59 +91,57 @@ input:focus-visible {
 .drink-name small,
 .summary p,
 .search-label,
-.add-drink label {
-  letter-spacing: 0.03em;
+.add-drink label,
+.sort-control {
+  font-weight: 950;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
 .eyebrow {
   width: fit-content;
-  margin: 0 0 5px;
-  padding: 5px 9px;
-  border: 1px solid var(--line);
+  margin: 0 0 6px;
+  padding: 6px 12px;
+  border: 3px solid var(--ink);
   border-radius: 999px;
-  color: var(--cream);
+  color: var(--ink);
+  background: var(--green);
   font-size: 0.72rem;
-  font-weight: 950;
+  box-shadow: var(--small-shadow);
 }
 
 h1 {
-  max-width: 11ch;
+  max-width: 12ch;
   margin: 0;
-  color: var(--cream);
-  font-size: clamp(2.05rem, 12vw, 4.5rem);
-  font-weight: 950;
+  color: var(--ink);
+  font-size: clamp(2rem, 10vw, 4.7rem);
+  font-weight: 1000;
   line-height: 0.85;
   text-transform: uppercase;
-  text-shadow: 3px 3px 0 var(--ink);
 }
 
 .subhead {
   margin: 8px 0 0;
-  color: var(--sun);
   font-size: 0.92rem;
-  font-weight: 950;
 }
 
 .reset-button,
 .add-drink button,
 .remove-drink-button {
-  min-height: 52px;
-  border: 0;
-  border-radius: 8px;
-  color: var(--cream);
-  background:
-    linear-gradient(90deg, transparent 0 4px, var(--orange) 4px calc(100% - 4px), transparent calc(100% - 4px)),
-    linear-gradient(var(--orange), var(--orange));
-  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.22);
+  min-height: 54px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  color: var(--white);
+  background: var(--ink);
+  box-shadow: var(--small-shadow);
   font-weight: 950;
   text-transform: uppercase;
   cursor: pointer;
 }
 
 .reset-button {
-  min-width: 86px;
-  padding: 0 16px;
+  min-width: 92px;
+  padding: 0 18px;
 }
 
 .offline-card,
@@ -171,70 +150,57 @@ h1 {
 }
 
 .offline-card {
-  margin: 8px 0 12px;
-  padding: 12px 14px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background:
-    radial-gradient(circle, rgba(255, 241, 198, 0.18) 0 2px, transparent 3px) 0 0 / 18px 18px,
-    #21100b;
+  margin: 0 0 12px;
+  padding: 14px;
+  border: 3px solid var(--ink);
+  border-radius: 22px;
+  background: var(--pink);
+  box-shadow: var(--small-shadow);
 }
 
 .offline-card span {
   display: block;
-  color: var(--orange);
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   font-weight: 950;
   text-transform: uppercase;
 }
 
 .offline-card p {
-  margin: 4px 0 0;
-  color: var(--cream-muted);
-  font-family: system-ui, sans-serif;
-  font-size: 0.9rem;
-  line-height: 1.35;
+  margin: 5px 0 0;
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.3;
 }
 
 .summary {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
-  margin: 8px 0 12px;
+  margin: 0 0 12px;
 }
 
 .summary div {
-  min-height: 92px;
+  min-height: 98px;
   padding: 15px 14px;
-  border: 2px solid var(--ink);
-  border-radius: 8px;
-  background:
-    radial-gradient(circle at 88% 18%, var(--sun) 0 7px, transparent 8px),
-    radial-gradient(circle, rgba(23, 9, 5, 0.16) 0 2px, transparent 3px) 10px 10px / 24px 24px,
-    var(--cream);
-  color: var(--ink);
-  box-shadow: 0 0 0 1px rgba(255, 248, 223, 0.24);
+  border: 3px solid var(--ink);
+  border-radius: 22px;
+  background: var(--yellow);
+  box-shadow: var(--small-shadow);
 }
 
 .summary div:nth-child(2) {
-  background:
-    radial-gradient(circle at 88% 18%, var(--clay) 0 7px, transparent 8px),
-    radial-gradient(circle, rgba(23, 9, 5, 0.14) 0 2px, transparent 3px) 10px 10px / 24px 24px,
-    var(--sage);
+  background: var(--green);
 }
 
 .summary span {
   display: block;
-  font-size: 2.25rem;
-  font-weight: 950;
-  line-height: 0.92;
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 1000;
+  line-height: 0.95;
 }
 
 .summary p {
-  margin: 9px 0 0;
-  font-family: system-ui, sans-serif;
-  color: rgba(7, 7, 6, 0.72);
-  font-size: 0.74rem;
-  font-weight: 900;
+  margin: 8px 0 0;
+  font-size: 0.76rem;
 }
 
 .controls,
@@ -246,23 +212,21 @@ h1 {
 
 .search-label,
 .add-drink,
-.sort-control {
-  padding: 12px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background:
-    radial-gradient(circle, rgba(243, 165, 54, 0.18) 0 2px, transparent 3px) 4px 4px / 22px 22px,
-    rgba(255, 241, 198, 0.08);
+.sort-control,
+.toggle-row {
+  border: 3px solid var(--ink);
+  border-radius: 22px;
+  background: var(--cream);
+  box-shadow: var(--small-shadow);
 }
 
 .search-label,
-.add-drink label,
-.sort-control > span {
+.add-drink,
+.sort-control {
   display: grid;
   gap: 8px;
-  color: var(--cream);
+  padding: 12px;
   font-size: 0.82rem;
-  font-weight: 950;
 }
 
 .search-label input,
@@ -270,66 +234,60 @@ h1 {
 .sort-control select {
   width: 100%;
   min-height: 54px;
-  border: 2px solid transparent;
-  border-radius: 8px;
-  padding: 0 14px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  padding: 0 16px;
   color: var(--ink);
-  background: var(--cream);
+  background: var(--white);
   outline: none;
   font-family: system-ui, sans-serif;
-  font-weight: 800;
+  font-weight: 850;
 }
 
 .search-label input:focus,
 .add-drink input:focus,
 .sort-control select:focus {
-  border-color: var(--orange);
-  box-shadow: 0 0 0 3px rgba(209, 138, 34, 0.25);
+  background: var(--green);
 }
 
 .toggle-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 58px;
+  min-height: 68px;
   padding: 0 14px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #21100b;
-  color: var(--cream);
   font-weight: 950;
   text-transform: uppercase;
 }
 
 .toggle-row input {
-  width: 30px;
-  height: 30px;
-  accent-color: var(--orange);
-}
-
-.sort-control {
-  display: grid;
-  gap: 8px;
+  width: 32px;
+  height: 32px;
+  accent-color: var(--salmon);
 }
 
 .sort-control select {
   appearance: none;
   background:
-    linear-gradient(45deg, transparent 50%, var(--ink) 50%) calc(100% - 22px) 50% / 8px 8px no-repeat,
-    linear-gradient(135deg, var(--ink) 50%, transparent 50%) calc(100% - 14px) 50% / 8px 8px no-repeat,
-    var(--cream);
+    linear-gradient(45deg, transparent 50%, var(--ink) 50%) calc(100% - 24px) 50% / 8px 8px no-repeat,
+    linear-gradient(135deg, var(--ink) 50%, transparent 50%) calc(100% - 16px) 50% / 8px 8px no-repeat,
+    var(--white);
   cursor: pointer;
+}
+
+.add-drink {
+  background: var(--yellow);
 }
 
 .add-drink div {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 78px;
+  grid-template-columns: minmax(0, 1fr) 86px;
   gap: 8px;
 }
 
 .drink-list {
   display: grid;
-  gap: 9px;
+  gap: 10px;
   padding: 4px 0 0;
 }
 
@@ -337,10 +295,8 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 2px 2px;
-  color: var(--cream-muted);
-  font-size: 0.82rem;
-  font-weight: 950;
+  padding: 6px 4px 4px;
+  font-size: 0.86rem;
 }
 
 .drink-row {
@@ -348,35 +304,32 @@ h1 {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 10px;
-  min-height: 76px;
-  padding: 10px;
-  border: 2px solid rgba(7, 7, 6, 0.92);
-  border-radius: 8px;
-  background:
-    radial-gradient(circle at 12px 12px, rgba(23, 9, 5, 0.18) 0 2px, transparent 3px) 0 0 / 28px 28px,
-    var(--cream);
-  color: var(--ink);
-  box-shadow: 0 0 0 1px rgba(255, 248, 223, 0.2);
+  min-height: 82px;
+  padding: 12px;
+  border: 3px solid var(--ink);
+  border-radius: 24px;
+  background: var(--green);
+  box-shadow: var(--shadow);
 }
 
 .drink-row.is-manual-order {
-  grid-template-columns: 72px minmax(0, 1fr) auto;
+  grid-template-columns: 74px minmax(0, 1fr) auto;
 }
 
 .drink-row.is-collected {
-  opacity: 0.68;
+  opacity: 0.7;
 }
 
 .drink-row:nth-child(4n + 1) {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(23, 9, 5, 0.18) 0 2px, transparent 3px) 0 0 / 28px 28px,
-    var(--sage);
+  background: var(--pink);
 }
 
 .drink-row:nth-child(4n + 3) {
-  background:
-    radial-gradient(circle at 12px 12px, rgba(23, 9, 5, 0.18) 0 2px, transparent 3px) 0 0 / 28px 28px,
-    #f5d59a;
+  background: var(--yellow);
+}
+
+.drink-row:nth-child(4n + 4) {
+  background: var(--blue);
 }
 
 .drink-name {
@@ -385,35 +338,34 @@ h1 {
 
 .reorder-controls {
   display: grid;
-  gap: 6px;
+  gap: 7px;
 }
 
 .reorder-controls button {
-  min-height: 34px;
-  border: 2px solid var(--ink);
-  border-radius: 8px;
-  color: var(--cream);
-  background: var(--ink);
-  font-family: system-ui, sans-serif;
+  min-height: 36px;
+  border: 3px solid var(--ink);
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--white);
   font-size: 0.72rem;
-  font-weight: 900;
+  font-weight: 950;
   text-transform: uppercase;
   cursor: pointer;
 }
 
 .reorder-controls button:disabled {
-  color: rgba(23, 9, 5, 0.3);
+  color: rgba(17, 17, 17, 0.35);
   background: transparent;
   cursor: not-allowed;
 }
 
 .collected-button {
   display: grid;
-  grid-template-columns: 34px minmax(0, 1fr);
+  grid-template-columns: 38px minmax(0, 1fr);
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   width: 100%;
-  min-height: 52px;
+  min-height: 54px;
   border: 0;
   padding: 0;
   color: inherit;
@@ -429,28 +381,28 @@ h1 {
 .tick-box {
   display: grid;
   place-items: center;
-  width: 34px;
-  height: 34px;
-  border: 2px solid var(--ink);
-  border-radius: 7px;
-  color: var(--cream);
-  background: transparent;
+  width: 38px;
+  height: 38px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  color: var(--white);
+  background: var(--white);
   font-family: system-ui, sans-serif;
-  font-size: 1.22rem;
+  font-size: 1.18rem;
   font-weight: 950;
   line-height: 1;
 }
 
 .is-collected .tick-box {
-  background: var(--orange);
+  background: var(--ink);
 }
 
 .drink-title {
   position: relative;
   display: block;
   overflow-wrap: anywhere;
-  font-size: 1.28rem;
-  font-weight: 950;
+  font-size: clamp(1.1rem, 4vw, 1.45rem);
+  font-weight: 1000;
   line-height: 0.95;
   text-transform: uppercase;
 }
@@ -460,9 +412,9 @@ h1 {
   top: 50%;
   left: 0;
   width: 0;
-  height: 4px;
-  background: var(--orange);
-  box-shadow: 0 1px 0 var(--ink);
+  height: 5px;
+  border-radius: 999px;
+  background: var(--salmon);
   content: "";
   transform: translateY(-50%);
   transition: width 160ms ease;
@@ -474,10 +426,11 @@ h1 {
 
 .drink-name small {
   display: inline-block;
-  padding: 3px 7px;
+  padding: 4px 9px;
+  border: 3px solid var(--ink);
   border-radius: 999px;
-  color: var(--cream);
-  background: var(--ink);
+  color: var(--ink);
+  background: var(--white);
   font-size: 0.68rem;
   font-weight: 950;
 }
@@ -491,67 +444,67 @@ h1 {
 }
 
 .remove-drink-button {
-  min-height: 32px;
-  padding: 0 10px;
-  color: var(--cream);
-  background: var(--ink);
-  box-shadow: none;
+  min-height: 34px;
+  padding: 0 12px;
   font-size: 0.68rem;
+  box-shadow: none;
 }
 
 .counter {
   display: grid;
-  grid-template-columns: 56px 50px 56px;
+  grid-template-columns: 58px 52px 58px;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
 }
 
 .counter-button {
-  width: 56px;
-  height: 56px;
-  border: 2px solid var(--ink);
-  border-radius: 8px;
-  color: var(--cream);
-  background: var(--ink);
+  width: 58px;
+  height: 58px;
+  border: 3px solid var(--ink);
+  border-radius: 18px;
+  color: var(--ink);
+  background: var(--white);
+  box-shadow: 3px 3px 0 var(--ink);
   font-size: 2rem;
-  font-weight: 950;
+  font-weight: 1000;
   line-height: 1;
   cursor: pointer;
 }
 
 .counter-button.plus {
-  color: var(--cream);
-  background: var(--orange);
+  background: var(--salmon);
 }
 
 .counter-button:active,
 .reset-button:active,
 .add-drink button:active,
-.remove-drink-button:active {
-  transform: translateY(1px);
+.remove-drink-button:active,
+.reorder-controls button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
 }
 
 .counter-button:disabled {
-  color: rgba(7, 7, 6, 0.34);
+  color: rgba(17, 17, 17, 0.3);
   background: transparent;
   cursor: not-allowed;
 }
 
 output {
-  min-width: 50px;
-  color: var(--ink);
+  min-width: 52px;
   font-size: 1.55rem;
-  font-weight: 950;
+  font-weight: 1000;
   text-align: center;
 }
 
 .empty-state {
   margin: 16px 0;
   padding: 24px 14px;
-  border: 1px dashed var(--line);
-  border-radius: 8px;
-  color: var(--cream-muted);
+  border: 3px dashed var(--ink);
+  border-radius: 24px;
+  background: var(--cream);
   text-align: center;
+  font-weight: 900;
 }
 
 .celebration {
@@ -566,14 +519,14 @@ output {
   position: absolute;
   top: 18%;
   left: 50%;
-  padding: 14px 18px;
-  border: 2px solid var(--ink);
-  border-radius: 8px;
+  padding: 16px 20px;
+  border: 4px solid var(--ink);
+  border-radius: 24px;
   color: var(--ink);
-  background: var(--cream);
-  box-shadow: 0 0 0 3px var(--orange);
+  background: var(--green);
+  box-shadow: var(--shadow);
   font-size: clamp(1.25rem, 6vw, 2.25rem);
-  font-weight: 950;
+  font-weight: 1000;
   text-transform: uppercase;
   transform: translateX(-50%) rotate(-2deg);
   animation: celebration-pop 2800ms ease both;
@@ -585,18 +538,19 @@ output {
   left: var(--left);
   width: 12px;
   height: 18px;
-  border-radius: 2px;
-  background: var(--orange);
+  border: 3px solid var(--ink);
+  border-radius: 4px;
+  background: var(--salmon);
   animation: confetti-fall 2400ms cubic-bezier(0.1, 0.8, 0.35, 1) both;
   animation-delay: var(--delay);
 }
 
 .celebration i:nth-child(3n) {
-  background: var(--cream);
+  background: var(--yellow);
 }
 
 .celebration i:nth-child(4n) {
-  background: var(--sage);
+  background: var(--blue);
 }
 
 .celebration i:nth-child(5n) {
@@ -638,7 +592,7 @@ output {
   }
 }
 
-@media (min-width: 680px) {
+@media (min-width: 700px) {
   .app-shell {
     padding-inline: 22px;
   }
@@ -649,16 +603,16 @@ output {
   }
 
   .controls {
-    grid-template-columns: minmax(0, 1.35fr) minmax(210px, 0.75fr) minmax(220px, 0.9fr);
+    grid-template-columns: minmax(0, 1.4fr) minmax(210px, 0.8fr) minmax(210px, 0.8fr);
     align-items: stretch;
   }
 }
 
-@media (min-width: 820px) {
+@media (min-width: 980px) {
   .app-shell {
     display: grid;
-    grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
-    gap: 14px;
+    grid-template-columns: minmax(300px, 380px) minmax(0, 1fr);
+    gap: 18px;
     align-items: start;
   }
 
@@ -674,19 +628,18 @@ output {
     grid-column: 2;
     grid-row: 1 / span 6;
     position: sticky;
-    top: 12px;
-    max-height: calc(100vh - 24px);
+    top: 14px;
+    max-height: calc(100vh - 28px);
     overflow: auto;
-    padding-right: 4px;
+    padding: 0 10px 12px 0;
   }
 
   .app-header {
     position: static;
-    margin: 0 0 12px;
-    padding: 0 0 12px;
-    background:
-      radial-gradient(circle, rgba(255, 241, 198, 0.22) 0 2px, transparent 3px) 0 100% / 20px 10px repeat-x,
-      transparent;
+    margin: 0 0 14px;
+    padding: 0 0 14px;
+    border-bottom: 0;
+    background: transparent;
     backdrop-filter: none;
   }
 
@@ -695,15 +648,31 @@ output {
   }
 }
 
-@media (max-width: 420px) {
+@media (min-width: 1180px) {
+  .drink-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .list-heading,
+  .empty-state {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 520px) {
   .app-header {
     align-items: flex-start;
   }
 
-  .drink-row {
-    grid-template-columns: 1fr;
+  .brand-lockup {
+    align-items: flex-start;
   }
 
+  .kangaroo-mark {
+    width: 76px;
+  }
+
+  .drink-row,
   .drink-row.is-manual-order {
     grid-template-columns: 1fr;
   }
