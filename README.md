@@ -17,6 +17,17 @@ Deploy the app to a static host such as Netlify, Vercel, Cloudflare Pages, or Gi
 
 After the first successful load, the app keeps an offline copy. Counts and custom drinks are saved on that device with `localStorage`.
 
+## Deploy to Netlify
+
+When importing from GitHub, Netlify should use:
+
+```text
+Build command: npm run build
+Publish directory: dist
+```
+
+The included `netlify.toml` sets those values automatically.
+
 ## Features
 
 - Drinks stay in the exact basement order from the request.
@@ -26,5 +37,9 @@ After the first successful load, the app keeps an offline copy. Counts and custo
 - Search filters the drink list.
 - The "Show only needed" toggle turns the list into a restock list.
 - New drinks can be added at the bottom.
+- Custom drinks can be removed.
+- Drinks can be viewed in basement order or A-Z order.
+- Needed drinks can be crossed off after collection.
+- Completing the restock list triggers a small celebration.
 - Counts and custom drinks are saved in `localStorage`.
 - The app can be installed to a phone Home Screen and used offline after first load.
