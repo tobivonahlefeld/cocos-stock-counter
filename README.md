@@ -38,7 +38,8 @@ The included `netlify.toml` sets those values automatically.
 - The "Show only needed" toggle turns the list into a restock list.
 - New drinks can be added at the bottom.
 - Custom drinks can be removed.
-- Drinks can be viewed in basement order or A-Z order.
+- Drinks can be moved into a saved manual order.
+- Drinks can be viewed in manual, basement, or A-Z order.
 - Needed drinks can be crossed off after collection.
 - Completing the restock list triggers a small celebration.
 - Counts and custom drinks are saved in `localStorage`.

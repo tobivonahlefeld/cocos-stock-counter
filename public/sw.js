@@ -1,5 +1,11 @@
-const CACHE_NAME = 'cocos-stock-counter-v2';
-const APP_SHELL = ['/', '/index.html', '/manifest.webmanifest', '/icon.svg'];
+const CACHE_NAME = 'cocos-stock-counter-v3';
+const APP_SHELL = [
+  '/',
+  '/index.html',
+  '/manifest.webmanifest',
+  '/icon.svg',
+  '/kangaroo.svg',
+];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(

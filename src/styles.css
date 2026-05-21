@@ -3,18 +3,22 @@
   font-family:
     "Arial Narrow", Impact, Haettenschweiler, "Franklin Gothic Heavy",
     system-ui, sans-serif;
-  background: #070706;
-  color: #fff8df;
+  background: #35130d;
+  color: #fff1c6;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  --ink: #070706;
-  --cream: #fff8df;
-  --cream-muted: #e5dec1;
-  --orange: #f05a24;
-  --orange-dark: #9f2d12;
-  --sage: #c7ded3;
-  --line: rgba(255, 248, 223, 0.34);
+  --ink: #170905;
+  --deep-earth: #35130d;
+  --earth: #4a180f;
+  --cream: #fff1c6;
+  --cream-muted: #ebd79d;
+  --ochre: #d18a22;
+  --orange: #d18a22;
+  --sun: #f3a536;
+  --clay: #a3341d;
+  --sage: #d3d5ad;
+  --line: rgba(255, 241, 198, 0.38);
 }
 
 * {
@@ -26,16 +30,25 @@ body {
   min-height: 100vh;
   margin: 0;
   background:
-    radial-gradient(circle at top left, rgba(240, 90, 36, 0.22), transparent 260px),
-    radial-gradient(circle at bottom right, rgba(199, 222, 211, 0.13), transparent 300px),
-    repeating-linear-gradient(
-      0deg,
-      rgba(255, 248, 223, 0.035) 0,
-      rgba(255, 248, 223, 0.035) 1px,
-      transparent 1px,
-      transparent 6px
-    ),
-    #070706;
+    radial-gradient(circle at 12% 14%, rgba(243, 165, 54, 0.24) 0 4px, transparent 5px 26px),
+    radial-gradient(circle at 74% 18%, rgba(255, 241, 198, 0.18) 0 3px, transparent 4px 24px),
+    radial-gradient(circle at 88% 82%, rgba(209, 138, 34, 0.18) 0 5px, transparent 6px 28px),
+    linear-gradient(145deg, #46170f, #230c08 58%, #130705);
+  background-size: 70px 70px, 58px 58px, 86px 86px, auto;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 20% 50%, transparent 0 58px, rgba(255, 241, 198, 0.28) 59px 62px, transparent 63px),
+    radial-gradient(circle at 20% 50%, transparent 0 78px, rgba(243, 165, 54, 0.34) 79px 83px, transparent 84px),
+    radial-gradient(circle at 86% 12%, transparent 0 44px, rgba(255, 241, 198, 0.22) 45px 48px, transparent 49px),
+    radial-gradient(circle at 86% 12%, transparent 0 62px, rgba(163, 52, 29, 0.42) 63px 68px, transparent 69px);
+  content: "";
+  opacity: 0.68;
+  pointer-events: none;
 }
 
 button,
@@ -49,7 +62,7 @@ button {
 
 button:focus-visible,
 input:focus-visible {
-  outline: 3px solid rgba(240, 90, 36, 0.42);
+  outline: 3px solid rgba(209, 138, 34, 0.46);
   outline-offset: 3px;
 }
 
@@ -70,9 +83,25 @@ input:focus-visible {
   gap: 12px;
   margin: 0 -12px 12px;
   padding: 16px 12px 12px;
-  border-bottom: 1px solid rgba(255, 248, 223, 0.18);
-  background: rgba(7, 7, 6, 0.94);
+  border-bottom: 1px solid rgba(255, 241, 198, 0.2);
+  background:
+    radial-gradient(circle, var(--cream) 0 2px, transparent 3px) 0 100% / 20px 10px repeat-x,
+    rgba(23, 9, 5, 0.94);
   backdrop-filter: blur(14px);
+}
+
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.kangaroo-mark {
+  width: clamp(72px, 20vw, 128px);
+  height: auto;
+  flex: 0 0 auto;
+  filter: drop-shadow(3px 3px 0 rgba(0, 0, 0, 0.42));
 }
 
 .eyebrow,
@@ -98,26 +127,25 @@ input:focus-visible {
 }
 
 h1 {
-  max-width: 12ch;
+  max-width: 11ch;
   margin: 0;
   color: var(--cream);
   font-size: clamp(2.05rem, 12vw, 4.5rem);
   font-weight: 950;
   line-height: 0.85;
   text-transform: uppercase;
-  text-shadow: 3px 3px 0 #000;
+  text-shadow: 3px 3px 0 var(--ink);
 }
 
 .subhead {
   margin: 8px 0 0;
-  color: var(--orange);
+  color: var(--sun);
   font-size: 0.92rem;
   font-weight: 950;
 }
 
 .reset-button,
 .add-drink button,
-.sort-control button,
 .remove-drink-button {
   min-height: 52px;
   border: 0;
@@ -147,7 +175,9 @@ h1 {
   padding: 12px 14px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #11100e;
+  background:
+    radial-gradient(circle, rgba(255, 241, 198, 0.18) 0 2px, transparent 3px) 0 0 / 18px 18px,
+    #21100b;
 }
 
 .offline-card span {
@@ -177,13 +207,19 @@ h1 {
   padding: 15px 14px;
   border: 2px solid var(--ink);
   border-radius: 8px;
-  background: var(--cream);
+  background:
+    radial-gradient(circle at 88% 18%, var(--sun) 0 7px, transparent 8px),
+    radial-gradient(circle, rgba(23, 9, 5, 0.16) 0 2px, transparent 3px) 10px 10px / 24px 24px,
+    var(--cream);
   color: var(--ink);
   box-shadow: 0 0 0 1px rgba(255, 248, 223, 0.24);
 }
 
 .summary div:nth-child(2) {
-  background: var(--sage);
+  background:
+    radial-gradient(circle at 88% 18%, var(--clay) 0 7px, transparent 8px),
+    radial-gradient(circle, rgba(23, 9, 5, 0.14) 0 2px, transparent 3px) 10px 10px / 24px 24px,
+    var(--sage);
 }
 
 .summary span {
@@ -214,7 +250,9 @@ h1 {
   padding: 12px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: rgba(255, 248, 223, 0.08);
+  background:
+    radial-gradient(circle, rgba(243, 165, 54, 0.18) 0 2px, transparent 3px) 4px 4px / 22px 22px,
+    rgba(255, 241, 198, 0.08);
 }
 
 .search-label,
@@ -228,7 +266,8 @@ h1 {
 }
 
 .search-label input,
-.add-drink input {
+.add-drink input,
+.sort-control select {
   width: 100%;
   min-height: 54px;
   border: 2px solid transparent;
@@ -242,9 +281,10 @@ h1 {
 }
 
 .search-label input:focus,
-.add-drink input:focus {
+.add-drink input:focus,
+.sort-control select:focus {
   border-color: var(--orange);
-  box-shadow: 0 0 0 3px rgba(240, 90, 36, 0.25);
+  box-shadow: 0 0 0 3px rgba(209, 138, 34, 0.25);
 }
 
 .toggle-row {
@@ -255,7 +295,7 @@ h1 {
   padding: 0 14px;
   border: 1px solid var(--line);
   border-radius: 8px;
-  background: #11100e;
+  background: #21100b;
   color: var(--cream);
   font-weight: 950;
   text-transform: uppercase;
@@ -272,22 +312,13 @@ h1 {
   gap: 8px;
 }
 
-.sort-control div {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.sort-control button {
-  min-height: 46px;
-  color: var(--cream);
-  background: #11100e;
-  box-shadow: none;
-}
-
-.sort-control button.is-active {
-  color: var(--ink);
-  background: var(--cream);
+.sort-control select {
+  appearance: none;
+  background:
+    linear-gradient(45deg, transparent 50%, var(--ink) 50%) calc(100% - 22px) 50% / 8px 8px no-repeat,
+    linear-gradient(135deg, var(--ink) 50%, transparent 50%) calc(100% - 14px) 50% / 8px 8px no-repeat,
+    var(--cream);
+  cursor: pointer;
 }
 
 .add-drink div {
@@ -321,9 +352,15 @@ h1 {
   padding: 10px;
   border: 2px solid rgba(7, 7, 6, 0.92);
   border-radius: 8px;
-  background: var(--cream);
+  background:
+    radial-gradient(circle at 12px 12px, rgba(23, 9, 5, 0.18) 0 2px, transparent 3px) 0 0 / 28px 28px,
+    var(--cream);
   color: var(--ink);
   box-shadow: 0 0 0 1px rgba(255, 248, 223, 0.2);
+}
+
+.drink-row.is-manual-order {
+  grid-template-columns: 72px minmax(0, 1fr) auto;
 }
 
 .drink-row.is-collected {
@@ -331,15 +368,43 @@ h1 {
 }
 
 .drink-row:nth-child(4n + 1) {
-  background: var(--sage);
+  background:
+    radial-gradient(circle at 12px 12px, rgba(23, 9, 5, 0.18) 0 2px, transparent 3px) 0 0 / 28px 28px,
+    var(--sage);
 }
 
 .drink-row:nth-child(4n + 3) {
-  background: #f5e7bb;
+  background:
+    radial-gradient(circle at 12px 12px, rgba(23, 9, 5, 0.18) 0 2px, transparent 3px) 0 0 / 28px 28px,
+    #f5d59a;
 }
 
 .drink-name {
   min-width: 0;
+}
+
+.reorder-controls {
+  display: grid;
+  gap: 6px;
+}
+
+.reorder-controls button {
+  min-height: 34px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  color: var(--cream);
+  background: var(--ink);
+  font-family: system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.reorder-controls button:disabled {
+  color: rgba(23, 9, 5, 0.3);
+  background: transparent;
+  cursor: not-allowed;
 }
 
 .collected-button {
@@ -462,7 +527,6 @@ h1 {
 .counter-button:active,
 .reset-button:active,
 .add-drink button:active,
-.sort-control button:active,
 .remove-drink-button:active {
   transform: translateY(1px);
 }
@@ -620,7 +684,9 @@ output {
     position: static;
     margin: 0 0 12px;
     padding: 0 0 12px;
-    background: transparent;
+    background:
+      radial-gradient(circle, rgba(255, 241, 198, 0.22) 0 2px, transparent 3px) 0 100% / 20px 10px repeat-x,
+      transparent;
     backdrop-filter: none;
   }
 
@@ -636,6 +702,14 @@ output {
 
   .drink-row {
     grid-template-columns: 1fr;
+  }
+
+  .drink-row.is-manual-order {
+    grid-template-columns: 1fr;
+  }
+
+  .reorder-controls {
+    grid-template-columns: 1fr 1fr;
   }
 
   .counter {
