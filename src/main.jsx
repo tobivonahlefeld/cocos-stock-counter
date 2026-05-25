@@ -382,6 +382,22 @@ function App() {
     }
   }
 
+  function setCount(id, value) {
+    const nextQuantity = Math.max(0, Number.parseInt(value, 10) || 0);
+
+    setCounts((currentCounts) => ({
+      ...currentCounts,
+      [id]: nextQuantity,
+    }));
+
+    if (nextQuantity === 0) {
+      setCollected((currentCollected) => ({
+        ...currentCollected,
+        [id]: false,
+      }));
+    }
+  }
+
   function resetCounts() {
     setCounts({});
     setCollected({});
@@ -689,7 +705,15 @@ function App() {
                   >
                     -
                   </button>
-                  <output aria-live="polite">{quantity}</output>
+                  <input
+                    className="quantity-input"
+                    type="number"
+                    inputMode="numeric"
+                    min="0"
+                    value={quantity}
+                    onChange={(event) => setCount(drink.id, event.target.value)}
+                    aria-label={`${drink.name} quantity`}
+                  />
                   <button
                     type="button"
                     className="counter-button plus"

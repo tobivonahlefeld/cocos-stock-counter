@@ -480,7 +480,7 @@ h1 {
 
 .counter {
   display: grid;
-  grid-template-columns: 56px 50px 56px;
+  grid-template-columns: 56px minmax(64px, 86px) 56px;
   align-items: center;
   gap: 6px;
 }
@@ -517,12 +517,34 @@ h1 {
   cursor: not-allowed;
 }
 
-output {
-  min-width: 50px;
+.quantity-input {
+  width: 100%;
+  min-width: 64px;
+  height: 56px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.48);
   color: var(--ink);
   font-size: 1.55rem;
   font-weight: 950;
   text-align: center;
+  outline: none;
+}
+
+.quantity-input:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(240, 90, 36, 0.22);
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.quantity-input[type="number"] {
+  appearance: textfield;
 }
 
 .empty-state {
@@ -824,7 +846,7 @@ output {
   }
 
   .counter {
-    grid-template-columns: 1fr 58px 1fr;
+    grid-template-columns: 1fr minmax(70px, 92px) 1fr;
   }
 
   .counter-button {
