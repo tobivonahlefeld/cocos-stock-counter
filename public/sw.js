@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cocos-stock-counter-v6';
+const CACHE_NAME = 'cocos-stock-counter-v7';
 const APP_SHELL = [
   '/',
   '/index.html',

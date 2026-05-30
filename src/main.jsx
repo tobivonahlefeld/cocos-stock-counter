@@ -200,7 +200,7 @@ const makeBaseId = (name, index) =>
 
 const baseDrinks = BASE_DRINKS.map((name, index) => ({
   id: makeBaseId(name, index),
-  name,
+  name: name.replace(/^Desp$/, 'Desperado').replace(/^Rb\b/i, 'Redbull'),
   custom: false,
 }));
 
@@ -246,6 +246,7 @@ function App() {
   const [sortMode, setSortMode] = useState(() => readJson(SORT_KEY, 'manual'));
   const [manualOrder, setManualOrder] = useState(() => readJson(ORDER_KEY, []));
   const [newDrink, setNewDrink] = useState('');
+  const [quantityDrafts, setQuantityDrafts] = useState({});
   const [offlineReady, setOfflineReady] = useState(false);
   const [showCelebration, setShowCelebration] = useState(false);
   const completionStateRef = useRef(null);
@@ -369,6 +370,12 @@ function App() {
   function updateCount(id, change) {
     const currentQuantity = counts[id] || 0;
 
+    setQuantityDrafts((currentDrafts) => {
+      const nextDrafts = { ...currentDrafts };
+      delete nextDrafts[id];
+      return nextDrafts;
+    });
+
     setCounts((currentCounts) => {
       const nextQuantity = Math.max(0, (currentCounts[id] || 0) + change);
       return { ...currentCounts, [id]: nextQuantity };
@@ -382,8 +389,24 @@ function App() {
     }
   }
 
+  function beginCountEdit(id) {
+    setQuantityDrafts((currentDrafts) => ({
+      ...currentDrafts,
+      [id]: counts[id] ? String(counts[id]) : '',
+    }));
+  }
+
   function setCount(id, value) {
-    const nextQuantity = Math.max(0, Number.parseInt(value, 10) || 0);
+    const digitsOnly = value.replace(/\D/g, '');
+    const displayValue =
+      digitsOnly === '' ? '' : String(Number.parseInt(digitsOnly, 10));
+    const nextQuantity =
+      displayValue === '' ? 0 : Number.parseInt(displayValue, 10);
+
+    setQuantityDrafts((currentDrafts) => ({
+      ...currentDrafts,
+      [id]: displayValue,
+    }));
 
     setCounts((currentCounts) => ({
       ...currentCounts,
@@ -396,6 +419,14 @@ function App() {
         [id]: false,
       }));
     }
+  }
+
+  function finishCountEdit(id) {
+    setQuantityDrafts((currentDrafts) => {
+      const nextDrafts = { ...currentDrafts };
+      delete nextDrafts[id];
+      return nextDrafts;
+    });
   }
 
   function resetCounts() {
@@ -710,8 +741,10 @@ function App() {
                     type="number"
                     inputMode="numeric"
                     min="0"
-                    value={quantity}
+                    value={quantityDrafts[drink.id] ?? quantity}
+                    onFocus={() => beginCountEdit(drink.id)}
                     onChange={(event) => setCount(drink.id, event.target.value)}
+                    onBlur={() => finishCountEdit(drink.id)}
                     aria-label={`${drink.name} quantity`}
                   />
                   <button
